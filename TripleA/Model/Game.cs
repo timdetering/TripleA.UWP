@@ -40,7 +40,7 @@ namespace TripleA.Model
             get { return selectedTerritory; }
             set
             {
-                selectedTerritory = value; this.RaisePropertyChanged();
+                selectedTerritory = value; 
                 var otherTerritories = this.Map.Territories.ToList();
                 otherTerritories.Remove(selectedTerritory);
                 foreach(var t in otherTerritories)
@@ -48,6 +48,7 @@ namespace TripleA.Model
                     t.IsSelected = false;
                 }
                 selectedTerritory.IsSelected = true;
+                this.RaisePropertyChanged();
             }
         }
 
@@ -340,6 +341,22 @@ namespace TripleA.Model
             }
         }
 
+        private Player GeneratePlayer(string name, bool isOptional)
+        {
+            var newPlayer = new Player();
+            newPlayer.Name = name;
+            newPlayer.IsOptional = isOptional;
+            var playerColorKey = "color." + name;
+            if (this.Map.Properties.ContainsKey(playerColorKey))
+            {
+                newPlayer.Color = this.Map.Properties[playerColorKey];
+            }
+
+            newPlayer.Resources = new List<Resource>();
+
+            return newPlayer;
+        }
+
         /// <summary>
         /// Pre-condition: map.properties has been loaded using 'LoadMap()'
         /// 
@@ -428,29 +445,16 @@ namespace TripleA.Model
             #region Players
             foreach (var playerElement in playerListElement.Elements("player"))
             {
-                var newPlayer = new Player();
-                newPlayer.Name = playerElement.Attribute("name").Value;
-                newPlayer.IsOptional = bool.Parse(playerElement.Attribute("optional").Value);
-                var playerColorKey = "color." + newPlayer.Name;
-                if(this.Map.Properties.ContainsKey(playerColorKey))
-                {
-                    newPlayer.Color = this.Map.Properties[playerColorKey];
-                }
-
-                newPlayer.Resources = new List<Resource>();
+                var playerName = playerElement.Attribute("name").Value;
+                var isOptional = bool.Parse(playerElement.Attribute("optional").Value);
+                var newPlayer = GeneratePlayer(playerName, isOptional);
 
                 this.Players.Add(newPlayer);
             }
-            var waterPlayer = new Player();
-            waterPlayer.Name = "Water";
-            waterPlayer.Color = "0026FF";
-
+            var waterPlayer = GeneratePlayer("Water", false);
             this.Players.Add(waterPlayer);
-            
-            var neutralPlayer = new Player();
-            neutralPlayer.Name = "Neutral";
-            neutralPlayer.Color = "0026FF";
 
+            var neutralPlayer = GeneratePlayer("Neutral", false);
             this.Players.Add(neutralPlayer);
 
             #endregion
@@ -733,11 +737,22 @@ namespace TripleA.Model
                 territory.CurrentOwner = ownerPlayer;
             }
 
+            // claim water territories for the water player
             var waterTerritories = this.Map.Territories.Where(f => f.IsWater);
             foreach(var waterTerritory in waterTerritories)
             {
                 waterTerritory.CurrentOwner = waterPlayer;
                 waterTerritory.OriginalOwner = waterPlayer;
+            }
+
+            // claim unowned, non-water territories for the neutral player
+            var unownedTerritories = from x in this.Map.Territories
+                                     where x.OriginalOwner == null && !x.IsWater
+                                     select x;
+            foreach(var neutralTerritory in unownedTerritories)
+            {
+                neutralTerritory.OriginalOwner = neutralPlayer;
+                neutralTerritory.CurrentOwner = neutralPlayer;
             }
             #endregion
             #region Units

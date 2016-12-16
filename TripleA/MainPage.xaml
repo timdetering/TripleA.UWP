@@ -11,7 +11,7 @@
         
         <SplitView x:Name="RootSplitView" PanePlacement="Left" OpenPaneLength="256" IsPaneOpen="True" CompactPaneLength="48" DisplayMode="Inline"  PaneBackground="#DD000000">
             <SplitView.Pane>
-                <Grid Margin="48,0,0,0">
+                <Grid Margin="48,48,0,0">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Path=SelectedTerritory.Name}" Foreground="White" />
                         <StackPanel Orientation="Horizontal">
