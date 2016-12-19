@@ -36,8 +36,8 @@ namespace TripleA.Views
         {
             if (!isInitialized)
             {
-                await Game.Instance.Initialize("Classic", "classic.xml");
-                //await Game.Instance.Initialize("WaW", "World_At_War.xml");
+                //await Game.Instance.Initialize("Classic", "classic.xml");
+                await Game.Instance.Initialize("WaW", "World_At_War.xml");
                 MapViewer.ChangeView(0, 0, 0.4f);
                 isInitialized = true;
                 this.DataContext = Game.Instance;

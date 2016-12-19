@@ -154,7 +154,9 @@
             <controls:BladeItem 
                 Title="Selected Territory"
                 IsOpen="True"
-                Background="#CC000000"
+                Background="#CC000000" 
+                TitleBarBackground="#CC000000"
+                TitleBarForeground="White"
                 >
                 <StackPanel Orientation="Vertical" Margin="16">
                     <TextBlock Text="{Binding Path=SelectedTerritory.Name}" Foreground="White" />
