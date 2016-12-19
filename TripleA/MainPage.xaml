@@ -45,6 +45,7 @@
             x:Name="HamburgerMenuControl"
             PaneBackground="#FF2B2B2B"
             Foreground="White"
+            DisplayMode="CompactOverlay"
             ItemTemplate="{StaticResource OptionMenuItem}"
             OptionsItemTemplate="{StaticResource OptionMenuItem}"
             HamburgerWidth="48"
