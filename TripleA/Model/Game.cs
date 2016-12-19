@@ -9,6 +9,7 @@ using System.Diagnostics;
 using TripleA.Attachments;
 using System.Collections.ObjectModel;
 using System.IO;
+using GalaSoft.MvvmLight;
 
 namespace TripleA.Model
 {

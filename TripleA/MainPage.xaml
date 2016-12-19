@@ -6,184 +6,70 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     >
+
+    <Page.Resources>
+
+
+        <DataTemplate x:Key="OptionMenuItem">
+            <Grid Width="240" Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <FontIcon 
+                    Grid.Column="0" 
+                    Margin="12,12,11,12" 
+                    FontFamily="Segoe MDL2 Assets" 
+                    Glyph="{Binding SymbolAsChar}"
+                    Foreground="White" 
+                    />
+                <TextBlock 
+                    Grid.Column="1" 
+                    Text="{Binding Label}" 
+                    Foreground="White" 
+                    FontSize="16" 
+                    VerticalAlignment="Center" 
+                    />
+            </Grid>
+        </DataTemplate>
+        
+    </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <SplitView x:Name="RootSplitView" PanePlacement="Left" OpenPaneLength="256" IsPaneOpen="True" CompactPaneLength="48" DisplayMode="Inline"  PaneBackground="#DD000000">
-            <SplitView.Pane>
-                <Grid Margin="48,48,0,0">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Path=SelectedTerritory.Name}" Foreground="White" />
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Current Owner: " Foreground="White" />
-                            <TextBlock Text="{Binding Path=SelectedTerritory.CurrentOwner.Name}" Foreground="White" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Original Owner: " Foreground="White" />
-                            <TextBlock Text="{Binding Path=SelectedTerritory.OriginalOwner.Name}" Foreground="White" />
-                        </StackPanel>
-                        <TextBlock Text="Production: " Foreground="White" />
-                        <TextBlock Text="{Binding Path=SelectedTerritory.Production}" Foreground="White" />
-                        <TextBlock Text="Units: " Foreground="White" />
-                        <ItemsControl ItemsSource="{Binding Path=SelectedTerritory.Units}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="{Binding Converter={StaticResource UnitToImage}}" />
-                                            <TextBlock Text=" x " Foreground="White" />
-                                            <TextBlock Text="{Binding Quantity}" Foreground="White" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Grid>
-            </SplitView.Pane>
-            <ScrollViewer 
-                x:Name="MapViewer" 
-                VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" 
-                ZoomMode="Enabled" 
-                MinZoomFactor="0.4" MaxZoomFactor="2"
-                >
-                <Canvas 
-                    x:Name="MapCanvas"
-                    Width="{Binding Path=Map.Width}" Height="{Binding Path=Map.Height}"
-                    ManipulationMode="TranslateX, TranslateY" 
-                    ManipulationStarted="Canvas_ManipulationStarted"
-                    ManipulationDelta="Canvas_ManipulationDelta"
-                    ManipulationCompleted="Canvas_ManipulationCompleted"
-                    >
-                    <Canvas.RenderTransform>
-                        <CompositeTransform x:Name="MapTransform" />
-                    </Canvas.RenderTransform>
-                    <Grid Width="{Binding Path=Map.TileWidth}" Height="{Binding Path=Map.TileHeight}">
-                        <ItemsControl x:Name="BaseTilesLayer" ItemsSource="{Binding Path=Map.BaseTiles}" IsHitTestVisible="False">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VariableSizedWrapGrid />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding ImagePath}" Width="256" Height="256" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <ItemsControl x:Name="WaterTerritoriesLayer" ItemsSource="{Binding Path=Map.WaterTerritories}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource WaterButtonStyle}" Click="Button_Click" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <ItemsControl x:Name="TerritoriesLayer" ItemsSource="{Binding Path=Map.NonWaterTerritories}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource TerritoryButtonStyle}" Click="Button_Click" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <ItemsControl x:Name="ReliefTilesLayer" ItemsSource="{Binding Path=Map.ReliefTiles}" IsHitTestVisible="False">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VariableSizedWrapGrid />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding ImagePath}" Width="256" Height="256" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <ItemsControl x:Name="CapitolsLayer" ItemsSource="{Binding Path=Capitols}" IsHitTestVisible="False">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Canvas>
-                                        <Image Source="{Binding ImagePath}" Canvas.Left="{Binding Path=Point.X}" Canvas.Top="{Binding Path=Point.Y}" />
-                                    </Canvas>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <ItemsControl x:Name="UnitsLayer" ItemsSource="{Binding Path=Map.Territories}" IsHitTestVisible="False">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Canvas>
-                                        <ItemsControl ItemsSource="{Binding Units}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Canvas>
-                                                        <Image 
-                                                            Source="{Binding Converter={StaticResource UnitToImage}}" 
-                                                            Canvas.Left="{Binding Path=Point.X}" Canvas.Top="{Binding Path=Point.Y}" 
-                                                            >
-                                                            <Image.RenderTransform>
-                                                                <ScaleTransform ScaleX="{Binding Converter={StaticResource UnitScalar}}" ScaleY="{Binding Converter={StaticResource UnitScalar}}" />
-                                                            </Image.RenderTransform>
-                                                        </Image>
-                                                    </Canvas>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Canvas>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <!--<ItemsControl ItemsSource="{Binding Path=Map.Territories}" IsHitTestVisible="False">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Canvas  />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Canvas>
-                                    <TextBlock 
-                                        Foreground="Black" 
-                                        Text="{Binding Path=Name}" 
-                                        Canvas.Top="{Binding Path=CenterPoint.Y}" 
-                                        Canvas.Left="{Binding Path=CenterPoint.X}" 
-                                        Visibility="{Binding Path=IsWater, Converter={StaticResource BooleanToVisibility}, ConverterParameter=INVERT}"
-                                        />
-                                </Canvas>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>-->
-                    </Grid>
-                </Canvas>
-            </ScrollViewer>
-        </SplitView>
-        
-        <ToggleButton 
-            x:Name="TogglePaneButton"
-            TabIndex="1" 
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-            IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
-            AutomationProperties.Name="Menu"
-            ToolTipService.ToolTip="Menu" 
-            Grid.Column="0"
-            />
+
+        <controls:HamburgerMenu
+            x:Name="HamburgerMenuControl"
+            PaneBackground="#FF2B2B2B"
+            Foreground="White"
+            ItemTemplate="{StaticResource OptionMenuItem}"
+            OptionsItemTemplate="{StaticResource OptionMenuItem}"
+            HamburgerWidth="48"
+            ItemsSource="{Binding MenuItems}"
+            OptionsItemsSource="{Binding Options}"
+            ItemClick="HamburgerMenu_OnItemClick"
+            >
+            <Grid Background="#fff2f2f2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Margin="24,0,0,0" Foreground="Black" />
+                </Border>
+
+                <Frame 
+                    x:Name="ContentFrame" 
+                    Foreground="Black"
+                    Grid.Row="1"
+                    Navigated="ContentFrame_Navigated" 
+                    />
+                
+            </Grid>
+        </controls:HamburgerMenu>
     </Grid>
 </Page>

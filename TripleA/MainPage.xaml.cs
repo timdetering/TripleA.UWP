@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TripleA.Model;
+using TripleA.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,48 +23,27 @@ namespace TripleA
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        bool isInitialized = false;
+        MainViewModel viewModel;
 
         public MainPage()
         {
             this.InitializeComponent();
-            this.Loaded += MainPage_Loaded;
+
+            viewModel = new MainViewModel();
+            this.DataContext = viewModel;
         }
 
-        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            if(!isInitialized)
-            {
-                //await Game.Instance.Initialize("Classic", "classic.xml");
-                await Game.Instance.Initialize("WaW", "World_At_War.xml");
-                MapViewer.ChangeView(0, 0, 0.4f);
-                isInitialized = true;
-                this.DataContext = Game.Instance;
-            }
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ContentFrame.CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            Button territoryButton = (Button)sender;
-            
-            var clickedTerritory = territoryButton.DataContext as Territory;
-            Game.Instance.SelectedTerritory = clickedTerritory;
-        }
-
-        private void Canvas_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
-        {
-            this.MapCanvas.Opacity = 1.0;
-        }
-
-        private void Canvas_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            this.MapTransform.TranslateX += e.Delta.Translation.X;
-            this.MapTransform.TranslateY += e.Delta.Translation.Y;
-        }
-
-        private void Canvas_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            this.MapCanvas.Opacity = 1.0;
+            var item = e.ClickedItem as MenuItemViewModel;
+            ContentFrame.Navigate(item.PageType);
         }
     }
 }
