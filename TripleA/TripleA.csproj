@@ -1080,6 +1080,7 @@
     <Compile Include="Converters\UnitToImageConverter.cs" />
     <Compile Include="Events\GameInitializationCompleted.cs" />
     <Compile Include="Events\PageTitleChanged.cs" />
+    <Compile Include="Events\TerritorySelectionChanged.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

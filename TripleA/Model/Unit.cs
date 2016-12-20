@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using System;
 
 namespace TripleA.Model
 {
@@ -6,7 +7,12 @@ namespace TripleA.Model
     {
         public Player Owner { get; internal set; }
         public UnitType Type { get; internal set; }
-        public int Quantity { get; set; }
+        private int quantity;
+        public int Quantity
+        {
+            get { return quantity; }
+            set { quantity = value; RaisePropertyChanged(); }
+        }
         private Point point;
         public Point Point
         {
@@ -15,5 +21,17 @@ namespace TripleA.Model
         }
 
         public Territory Territory { get; internal set; }
+
+        public Unit Clone()
+        {
+            var clone = new Unit();
+
+            clone.Owner = this.Owner;
+            clone.Type = this.Type;
+            clone.Territory = this.Territory;
+            clone.Quantity = 1;
+
+            return clone;
+        }
     }
 }

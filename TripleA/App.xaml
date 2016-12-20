@@ -213,6 +213,44 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="UnitButtonStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard/>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard/>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard/>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Image 
+                                Source="{Binding Converter={StaticResource UnitToImage}}" 
+                                >
+                                <Image.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding Converter={StaticResource UnitScalar}}" ScaleY="{Binding Converter={StaticResource UnitScalar}}" />
+                                </Image.RenderTransform>
+                            </Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 
 </Application>

@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using TripleA.Events;
 
 namespace TripleA.Model
 {
@@ -22,7 +24,15 @@ namespace TripleA.Model
                 {
                     t.IsSelected = false;
                 }
-                selectedTerritory.IsSelected = true;
+                if(selectedTerritory != null)
+                {
+                    selectedTerritory.IsSelected = true;
+                }
+
+                var payload = new TerritorySelectionChanged();
+                payload.Territory = selectedTerritory;
+                Messenger.Default.Send<TerritorySelectionChanged>(payload);
+
                 this.RaisePropertyChanged();
             }
         }

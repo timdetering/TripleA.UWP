@@ -50,7 +50,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource WaterButtonStyle}" Click="Button_Click" />
+                                <Button Style="{StaticResource WaterButtonStyle}" Click="TerritoryClicked" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -62,7 +62,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource TerritoryButtonStyle}" Click="Button_Click" />
+                                <Button Style="{StaticResource TerritoryButtonStyle}" Click="TerritoryClicked" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -92,7 +92,7 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <ItemsControl x:Name="UnitsLayer" ItemsSource="{Binding Path=Map.Territories}" IsHitTestVisible="False">
+                    <ItemsControl x:Name="UnitsLayer" ItemsSource="{Binding Path=Map.Territories}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <Canvas />
@@ -105,14 +105,12 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Canvas>
-                                                    <Image 
-                                                            Source="{Binding Converter={StaticResource UnitToImage}}" 
-                                                            Canvas.Left="{Binding Path=Point.X}" Canvas.Top="{Binding Path=Point.Y}" 
-                                                            >
-                                                        <Image.RenderTransform>
-                                                            <ScaleTransform ScaleX="{Binding Converter={StaticResource UnitScalar}}" ScaleY="{Binding Converter={StaticResource UnitScalar}}" />
-                                                        </Image.RenderTransform>
-                                                    </Image>
+                                                    <Button 
+                                                        Style="{StaticResource UnitButtonStyle}" 
+                                                        Canvas.Left="{Binding Path=Point.X}" Canvas.Top="{Binding Path=Point.Y}" 
+                                                        Click="UnitClicked" 
+                                                        PointerMoved="Button_PointerMoved"
+                                                        />
                                                 </Canvas>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -153,7 +151,7 @@
 
             <controls:BladeItem 
                 Title="Selected Territory"
-                IsOpen="True"
+                IsOpen="{Binding IsTerritorySelected, Mode=TwoWay}"
                 Background="#CC000000" 
                 TitleBarBackground="#CC000000"
                 TitleBarForeground="White"
@@ -172,6 +170,30 @@
                     <TextBlock Text="{Binding Path=Map.SelectedTerritory.Production}" Foreground="White" />
                     <TextBlock Text="Units: " Foreground="White" />
                     <ItemsControl ItemsSource="{Binding Path=Map.SelectedTerritory.Units}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Converter={StaticResource UnitToImage}}" />
+                                        <TextBlock Text=" x " Foreground="White" />
+                                        <TextBlock Text="{Binding Quantity}" Foreground="White" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </controls:BladeItem>
+
+            <controls:BladeItem
+                Title="Move"
+                IsOpen="{Binding IsMoveInProgress, Mode=TwoWay}"
+                Background="#CC000000" 
+                TitleBarBackground="#CC000000"
+                TitleBarForeground="White"
+                >
+                <StackPanel Orientation="Vertical" Margin="16">
+                    <ItemsControl ItemsSource="{Binding Path=UnitsToMove}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
