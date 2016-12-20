@@ -52,6 +52,7 @@
             ItemsSource="{Binding MenuItems}"
             OptionsItemsSource="{Binding Options}"
             ItemClick="HamburgerMenu_OnItemClick"
+            OptionsItemClick="HamburgerMenu_OnOptionsItemClick"
             >
             <Grid Background="#fff2f2f2">
                 <Grid.RowDefinitions>

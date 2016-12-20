@@ -10,6 +10,8 @@ using TripleA.Attachments;
 using System.Collections.ObjectModel;
 using System.IO;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
+using TripleA.Events;
 
 namespace TripleA.Model
 {
@@ -57,6 +59,8 @@ namespace TripleA.Model
 
             await LoadMap();
             await LoadGameConfig(configFile);
+
+            Messenger.Default.Send<GameInitializationCompleted>(new GameInitializationCompleted());
         }
 
 

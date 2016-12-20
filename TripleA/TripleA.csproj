@@ -1078,6 +1078,7 @@
     <Compile Include="Converters\TerritoryToPathConverter.cs" />
     <Compile Include="Converters\UnitScaleConverter.cs" />
     <Compile Include="Converters\UnitToImageConverter.cs" />
+    <Compile Include="Events\GameInitializationCompleted.cs" />
     <Compile Include="Events\PageTitleChanged.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -1088,6 +1089,7 @@
     <Compile Include="Model\Capitol.cs" />
     <Compile Include="Model\Figure.cs" />
     <Compile Include="Model\Game.cs" />
+    <Compile Include="Model\Scenario.cs" />
     <Compile Include="Model\SequenceStepType.cs" />
     <Compile Include="Model\SequenceStep.cs" />
     <Compile Include="Model\GameSetting.cs" />
@@ -1109,6 +1111,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
+    <Compile Include="ViewModel\NewGameViewModel.cs" />
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
     </Compile>
