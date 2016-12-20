@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using M = TripleA.Model;
+using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
-using Windows.Foundation;
+using M = TripleA.Model;
 
 namespace TripleA.Converters
 {

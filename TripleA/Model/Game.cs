@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using System.Xml.Linq;
-using System.Diagnostics;
-using TripleA.Attachments;
-using System.Collections.ObjectModel;
-using System.IO;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using TripleA.Attachments;
 using TripleA.Events;
+using Windows.Storage;
 
 namespace TripleA.Model
 {
