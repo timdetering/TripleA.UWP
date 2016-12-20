@@ -1,7 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
 using System.Collections.ObjectModel;
-using TripleA.Events;
 using TripleA.Model;
 
 namespace TripleA.ViewModel

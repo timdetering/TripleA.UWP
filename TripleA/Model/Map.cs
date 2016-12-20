@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
+using System.Linq;
 
 namespace TripleA.Model
 {
