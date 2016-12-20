@@ -78,6 +78,25 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding Path=Map.NonWaterTerritories}" IsHitTestVisible="False">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas  />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Canvas>
+                                    <TextBlock 
+                                        Foreground="Black" 
+                                        Text="{Binding Path=Name}" 
+                                        Canvas.Top="{Binding Path=CenterPoint.Y}" 
+                                        Canvas.Left="{Binding Path=CenterPoint.X}" 
+                                        />
+                                </Canvas>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                     <ItemsControl x:Name="CapitolsLayer" ItemsSource="{Binding Path=Capitols}" IsHitTestVisible="False">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -119,26 +138,6 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <!--<ItemsControl ItemsSource="{Binding Path=Map.Territories}" IsHitTestVisible="False">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Canvas  />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Canvas>
-                                    <TextBlock 
-                                        Foreground="Black" 
-                                        Text="{Binding Path=Name}" 
-                                        Canvas.Top="{Binding Path=CenterPoint.Y}" 
-                                        Canvas.Left="{Binding Path=CenterPoint.X}" 
-                                        Visibility="{Binding Path=IsWater, Converter={StaticResource BooleanToVisibility}, ConverterParameter=INVERT}"
-                                        />
-                                </Canvas>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>-->
                 </Grid>
             </Canvas>
         </ScrollViewer>

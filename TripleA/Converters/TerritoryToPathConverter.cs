@@ -1,4 +1,5 @@
 ﻿using System;
+using TripleA.Helpers;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -11,38 +12,8 @@ namespace TripleA.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var territory = value as M.Territory;
-            PathGeometry geom = new PathGeometry();
-
-            foreach(var fig2 in territory.Figures)
-            {
-                PathFigure fig = new PathFigure();
-                fig.IsClosed = true;
-                fig.IsFilled = true;
-                if (fig2.StartPoint == null)
-                {
-                    return null;
-                }
-                fig.StartPoint = ConvertToPoint(fig2.StartPoint);
-
-                foreach (var point in fig2.Points)
-                {
-                    LineSegment line = new LineSegment();
-                    line.Point = ConvertToPoint(point);
-                    fig.Segments.Add(line);
-                }
-
-                geom.Figures.Add(fig);
-            }
-
-            return geom;
-        }
-
-        private Point ConvertToPoint(M.Point model)
-        {
-            var point = new Point();
-            point.X = (double)model.X;
-            point.Y = (double)model.Y;
-            return point;
+            var g = TerritoryGeometryHelper.InitializeGeometry(territory);
+            return g;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

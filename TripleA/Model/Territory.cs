@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.UI.Xaml.Media;
 
 namespace TripleA.Model
 {
@@ -41,6 +42,7 @@ namespace TripleA.Model
             this.Figures = new List<Figure>();
             this.Units = new ObservableCollection<Unit>();
         }
+
         public void AddUnits(Unit unitsToAdd)
         {
             var match = (from x in Units
