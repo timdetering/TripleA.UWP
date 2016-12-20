@@ -45,6 +45,7 @@ namespace TripleA.Views
             {
                 var scenarioName = viewModel.SelectedScenario.Name;
                 var variationName = "World_At_War" + ".xml";
+                variationName = "classic.xml";
 
                 await Game.Instance.Initialize(scenarioName, variationName);
 
