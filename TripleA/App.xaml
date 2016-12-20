@@ -201,13 +201,6 @@
         						Data="{Binding Converter={StaticResource TerritoryToPath}}" 
         						Visibility="{Binding Path=IsSelected, Converter={StaticResource BooleanToVisibility}}"
                                 />
-                            <!--<TextBlock 
-        						Foreground="Black" 
-        						Text="{Binding Name}" 
-        						Canvas.Top="{Binding CenterPoint.Y}" 
-        						Canvas.Left="{Binding CenterPoint.X}" 
-        						Visibility="{Binding IsWater, ConverterParameter=INVERT, Converter={StaticResource BooleanToVisibility}}"
-                                />-->
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -246,6 +239,7 @@
                                     <ScaleTransform ScaleX="{Binding Converter={StaticResource UnitScalar}}" ScaleY="{Binding Converter={StaticResource UnitScalar}}" />
                                 </Image.RenderTransform>
                             </Image>
+                            <TextBlock FontFamily="Ariel" FontWeight="Bold" FontSize="16" Text="{Binding Quantity}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
