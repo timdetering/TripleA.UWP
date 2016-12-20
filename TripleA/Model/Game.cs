@@ -34,25 +34,6 @@ namespace TripleA.Model
             }
         }
 
-        private Territory selectedTerritory;
-
-        public Territory SelectedTerritory
-        {
-            get { return selectedTerritory; }
-            set
-            {
-                selectedTerritory = value; 
-                var otherTerritories = this.Map.Territories.ToList();
-                otherTerritories.Remove(selectedTerritory);
-                foreach(var t in otherTerritories)
-                {
-                    t.IsSelected = false;
-                }
-                selectedTerritory.IsSelected = true;
-                this.RaisePropertyChanged();
-            }
-        }
-
         public Map Map { get; set; }
         internal List<Player> Players { get; private set; }
         public List<Alliance> Alliances { get; private set; }
@@ -63,7 +44,6 @@ namespace TripleA.Model
         public List<ProductionRule> ProductionRules { get; set; }
         internal List<ProductionFrontier> ProductionFrontiers { get; private set; }
         public List<GameSetting> Settings { get; private set; }
-        public ObservableCollection<Capitol> Capitols { get; private set; }
         public bool HasCustomUnitGraphics { get; private set; }
 
         private Game()
@@ -189,7 +169,7 @@ namespace TripleA.Model
                 var polygonTextFile = await FileIO.ReadTextAsync(file);
 
                 var capitols = polygonTextFile.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                this.Capitols = new ObservableCollection<Capitol>();
+                //this.Map.Capitols = new ObservableCollection<Capitol>();
 
                 foreach (var capitolLine in capitols)
                 {
@@ -209,7 +189,7 @@ namespace TripleA.Model
                     newCap.Point = point;
                     newCap.ImagePath = "ms-appx:///Game/assets/flags/" + territory.OriginalOwner.Name + "_large.png";
 
-                    this.Capitols.Add(newCap);
+                    this.Map.Capitols.Add(newCap);
                 }
             }
             catch (FileNotFoundException fnfe)
