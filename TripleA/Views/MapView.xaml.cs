@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TripleA.Model;
+using TripleA.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,11 +24,15 @@ namespace TripleA.Views
     /// </summary>
     public sealed partial class MapView : Page
     {
+        MapViewModel viewModel;
+
         bool isInitialized = false;
 
         public MapView()
         {
             this.InitializeComponent();
+
+            viewModel = new MapViewModel();
 
             this.Loaded += MainPage_Loaded;
         }
@@ -36,11 +41,13 @@ namespace TripleA.Views
         {
             if (!isInitialized)
             {
-                //await Game.Instance.Initialize("Classic", "classic.xml");
-                await Game.Instance.Initialize("WaW", "World_At_War.xml");
+
+                await viewModel.Initialize();
+
+                this.DataContext = viewModel;
+
                 MapViewer.ChangeView(0, 0, 0.4f);
                 isInitialized = true;
-                this.DataContext = Game.Instance;
             }
         }
 
@@ -49,7 +56,7 @@ namespace TripleA.Views
             Button territoryButton = (Button)sender;
 
             var clickedTerritory = territoryButton.DataContext as Territory;
-            Game.Instance.SelectedTerritory = clickedTerritory;
+            viewModel.Map.SelectedTerritory = clickedTerritory;
         }
 
         private void Canvas_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)

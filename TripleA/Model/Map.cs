@@ -1,11 +1,32 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight;
 
 namespace TripleA.Model
 {
-    public class Map
+    public class Map : ViewModelBase
     {
+
+        private Territory selectedTerritory;
+
+        public Territory SelectedTerritory
+        {
+            get { return selectedTerritory; }
+            set
+            {
+                selectedTerritory = value;
+                var otherTerritories = this.Territories.ToList();
+                otherTerritories.Remove(selectedTerritory);
+                foreach (var t in otherTerritories)
+                {
+                    t.IsSelected = false;
+                }
+                selectedTerritory.IsSelected = true;
+                this.RaisePropertyChanged();
+            }
+        }
+
         public int Width { get; set; }
         public int Height { get; set; }
         public List<Territory> Territories { get; internal set; }
@@ -37,6 +58,7 @@ namespace TripleA.Model
                 return t.ToList();
             }
         }
+        public ObservableCollection<Capitol> Capitols { get; private set; }
 
         public Map()
         {
@@ -44,6 +66,7 @@ namespace TripleA.Model
             this.Properties = new Dictionary<string, string>();
             this.BaseTiles = new ObservableCollection<Tile>();
             this.ReliefTiles = new ObservableCollection<Tile>();
+            this.Capitols = new ObservableCollection<Capitol>();
         }
     }
 }

@@ -159,19 +159,19 @@
                 TitleBarForeground="White"
                 >
                 <StackPanel Orientation="Vertical" Margin="16">
-                    <TextBlock Text="{Binding Path=SelectedTerritory.Name}" Foreground="White" />
+                    <TextBlock Text="{Binding Path=Map.SelectedTerritory.Name}" Foreground="White" />
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Current Owner: " Foreground="White" />
-                        <TextBlock Text="{Binding Path=SelectedTerritory.CurrentOwner.Name}" Foreground="White" />
+                        <TextBlock Text="{Binding Path=Map.SelectedTerritory.CurrentOwner.Name}" Foreground="White" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Original Owner: " Foreground="White" />
-                        <TextBlock Text="{Binding Path=SelectedTerritory.OriginalOwner.Name}" Foreground="White" />
+                        <TextBlock Text="{Binding Path=Map.SelectedTerritory.OriginalOwner.Name}" Foreground="White" />
                     </StackPanel>
                     <TextBlock Text="Production: " Foreground="White" />
-                    <TextBlock Text="{Binding Path=SelectedTerritory.Production}" Foreground="White" />
+                    <TextBlock Text="{Binding Path=Map.SelectedTerritory.Production}" Foreground="White" />
                     <TextBlock Text="Units: " Foreground="White" />
-                    <ItemsControl ItemsSource="{Binding Path=SelectedTerritory.Units}">
+                    <ItemsControl ItemsSource="{Binding Path=Map.SelectedTerritory.Units}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
