@@ -1,8 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using System;
+using System.Diagnostics;
 using TripleA.Events;
 using TripleA.Model;
 using TripleA.ViewModel;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -17,6 +20,8 @@ namespace TripleA.Views
     {
         MapViewModel viewModel;
 
+        // Keeping the Drag operation will allow to cancel it after it has started
+        IAsyncOperation<DataPackageOperation> _dragOperation;
         bool isInitialized = false;
 
         public MapView()
@@ -48,7 +53,18 @@ namespace TripleA.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void UnitClicked(object sender, RoutedEventArgs e)
+        {
+            Button unitButton = (Button)sender;
+
+            var clickedUnit = unitButton.DataContext as Unit;
+
+            MapViewer.ManipulationMode = ManipulationModes.System;
+
+            viewModel.AddUnitsToMove(clickedUnit);
+        }
+
+        private void TerritoryClicked(object sender, RoutedEventArgs e)
         {
             Button territoryButton = (Button)sender;
 
@@ -58,18 +74,39 @@ namespace TripleA.Views
 
         private void Canvas_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
+            Debug.WriteLine("ManipulationStarted");
+            e.Handled = false;
             this.MapCanvas.Opacity = 1.0;
         }
 
         private void Canvas_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
+            Debug.WriteLine("ManipulationDelta");
+            e.Handled = false;
             this.MapTransform.TranslateX += e.Delta.Translation.X;
             this.MapTransform.TranslateY += e.Delta.Translation.Y;
         }
 
         private void Canvas_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
+            Debug.WriteLine("ManipulationCompleted");
+            e.Handled = false;
             this.MapCanvas.Opacity = 1.0;
+        }
+
+        private void Image_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            Debug.WriteLine("Pointer Pressed over unit");
+        }
+
+        private void Image_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            Debug.WriteLine("Pointer Released over unit");
+        }
+
+        private void Button_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            Debug.WriteLine("Pointer Moved");
         }
     }
 }
