@@ -1,8 +1,10 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TripleA.Events;
 using TripleA.Model;
 using TripleA.ViewModel;
 using Windows.Foundation;
@@ -35,6 +37,13 @@ namespace TripleA.Views
             viewModel = new MapViewModel();
 
             this.Loaded += MainPage_Loaded;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Map" });
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)

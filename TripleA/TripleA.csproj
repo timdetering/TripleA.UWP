@@ -1078,6 +1078,7 @@
     <Compile Include="Converters\TerritoryToPathConverter.cs" />
     <Compile Include="Converters\UnitScaleConverter.cs" />
     <Compile Include="Converters\UnitToImageConverter.cs" />
+    <Compile Include="Events\PageTitleChanged.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -1110,6 +1111,9 @@
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewGameView.xaml.cs">
+      <DependentUpon>NewGameView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -3066,6 +3070,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewGameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

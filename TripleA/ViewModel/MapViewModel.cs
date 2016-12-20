@@ -19,8 +19,8 @@ namespace TripleA.ViewModel
 
         public async Task Initialize()
         {
-            //await Game.Instance.Initialize("Classic", "classic.xml");
-            await Game.Instance.Initialize("WaW", "World_At_War.xml");
+            await Game.Instance.Initialize("Classic", "classic.xml");
+            //await Game.Instance.Initialize("WaW", "World_At_War.xml");
         }
     }
 }
