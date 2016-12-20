@@ -43,7 +43,18 @@ namespace TripleA
         private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as MenuItemViewModel;
-            ContentFrame.Navigate(item.PageType);
+            if (item.PageType != null)
+            {
+                ContentFrame.Navigate(item.PageType);
+            }
+        }
+        private async void HamburgerMenu_OnOptionsItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as MenuItemViewModel;
+            if (item.PageType != null)
+            {
+                ContentFrame.Navigate(item.PageType);
+            }
         }
     }
 }

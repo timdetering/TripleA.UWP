@@ -35,6 +35,7 @@ namespace TripleA.Views
             this.InitializeComponent();
 
             viewModel = new MapViewModel();
+            this.DataContext = viewModel;
 
             this.Loaded += MainPage_Loaded;
         }
@@ -52,8 +53,6 @@ namespace TripleA.Views
             {
 
                 await viewModel.Initialize();
-
-                this.DataContext = viewModel;
 
                 MapViewer.ChangeView(0, 0, 0.4f);
                 isInitialized = true;

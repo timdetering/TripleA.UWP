@@ -29,7 +29,8 @@ namespace TripleA.ViewModel
             this.Options = new ObservableCollection<MenuItemViewModel>();
 
             this.InitializeMenu();
-            InitializeEventHandlers();
+            this.InitializeOptions();
+            this.InitializeEventHandlers();
         }
 
         private void InitializeEventHandlers()
@@ -52,7 +53,7 @@ namespace TripleA.ViewModel
         private void InitializeOptions()
         {
             this.Options.Clear();
-            var mapListItem = new MenuItemViewModel() { Label = "New Game", SymbolAsChar = '\uE707', PageType = typeof(NewGameView) };
+            var mapListItem = new MenuItemViewModel() { Label = "New Game", SymbolAsChar = '\uE710', PageType = typeof(NewGameView) };
 
             this.Options.Add(mapListItem);
         }
