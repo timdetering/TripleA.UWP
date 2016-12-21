@@ -16,6 +16,8 @@
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         <converter:UnitToImageConverter x:Key="UnitToImage" />
         <converter:UnitScaleConverter x:Key="UnitScalar" />
+        <converter:UnitToQuantityVisibility x:Key="UnitQuantityVisibility" />
+        <converter:TerritoryToNamePointConverter x:Key="TerritoryToNamePoint" />
 
         <DataTemplate x:Key="NavMenuItemTemplate">
             <Grid>
@@ -239,7 +241,13 @@
                                     <ScaleTransform ScaleX="{Binding Converter={StaticResource UnitScalar}}" ScaleY="{Binding Converter={StaticResource UnitScalar}}" />
                                 </Image.RenderTransform>
                             </Image>
-                            <TextBlock FontFamily="Ariel" FontWeight="Bold" FontSize="16" Text="{Binding Quantity}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                            <TextBlock 
+                                FontFamily="Ariel" FontWeight="Bold" FontSize="16" 
+                                Text="{Binding Quantity}" 
+                                Foreground="White" 
+                                HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                                Visibility="{Binding Converter={StaticResource UnitQuantityVisibility}}"
+                                />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

@@ -89,9 +89,12 @@
                                 <Canvas>
                                     <TextBlock 
                                         Foreground="Black" 
+                                        FontFamily="Arial"
+                                        FontWeight="Bold" 
+                                        FontSize="10"
                                         Text="{Binding Path=Name}" 
-                                        Canvas.Top="{Binding Path=CenterPoint.Y}" 
-                                        Canvas.Left="{Binding Path=CenterPoint.X}" 
+                                        Canvas.Top="{Binding Converter={StaticResource TerritoryToNamePoint}, ConverterParameter=Y}" 
+                                        Canvas.Left="{Binding Converter={StaticResource TerritoryToNamePoint}, ConverterParameter=X}" 
                                         />
                                 </Canvas>
                             </DataTemplate>
