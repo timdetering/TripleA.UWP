@@ -1075,9 +1075,11 @@
     <Compile Include="Attachments\UnitAttachment.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\StringToSolidColorBrushConverter.cs" />
+    <Compile Include="Converters\TerritoryToNamePointConverter.cs" />
     <Compile Include="Converters\TerritoryToPathConverter.cs" />
     <Compile Include="Converters\UnitScaleConverter.cs" />
     <Compile Include="Converters\UnitToImageConverter.cs" />
+    <Compile Include="Converters\UnitToQuantityVisibility.cs" />
     <Compile Include="Events\GameInitializationCompleted.cs" />
     <Compile Include="Events\PageTitleChanged.cs" />
     <Compile Include="Events\TerritorySelectionChanged.cs" />
